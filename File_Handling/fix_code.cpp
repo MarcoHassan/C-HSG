@@ -2,9 +2,6 @@
 
 // example: sentence#1: This is an example1, sentence #2: This is an example2 and sentence #3: This is an example3
 
-// Write a program where you ask the user to provide his/her name, then you write his/her name in the file.
-// Finally you read the file and print its content.
-
 #include <iostream>
 #include <fstream> // to manage files in c++ environment.
 #include <cstring> // to concatenate the c-strings.
@@ -24,7 +21,7 @@ void readFromFile (fstream&);
 ////////////////////
 
 // Open the connection with a generic file.
-fstream myfile;
+fstream fruit;
 
 int main() {
   
@@ -32,65 +29,36 @@ int main() {
 
   try
   {
-      fileCreation(myfile);
+      // Open fruit connection
+      fruit.open("fruit.txt", ios::out);
 
-      writeToFile(myfile);  
+      // Write to the fruit file.
+      fruit << "Bananas are sweet\n" << "Apple are sour\n" << "Orange are juicy\n";
+            
+      // Read form fruit file.
+      fruit.close();
+      fruit.open("fruit.txt", ios::in);      
+
+      string readin; // helper string.
+      
+      while(getline(fruit, readin))
+	{
+	  cout << readin << endl;
+	}      
+
+      // To free up resources and avoid memory leaks.
+      fruit.close();
+      cout << "The connection with the fruit file was closed to avoid memory leaks.\n";
   }
 
   // To free up resources and avoid memory leaks.
   catch (...)//catch all exceptions
   {
-    myfile.close();
+    if(fruit.is_open())
+      {
+	fruit.close();
+      }    
   }
   
   return 0;
-}
-
-//////////////////////////
-// Function Declaration //
-//////////////////////////
-
-void fileCreation(fstream& file)
-{
-  //helper variable
-  char file_format[] = ".txt";
-  char name[200];
-
-  cout << "Enter the name of the txt to be create in the current working directory: ";
-    
-  std::cin >> name;
-
-  strcat(name, file_format);
-
-  //Specify the file that will be used for writing.
-  // fstream::out to create the file in case it doesn't exist.
-  file.open(name, fstream::out);
-  
-}
-
-
-void writeToFile(fstream& file)
-{
-  // Helper variable
-  char reply[50];
-
-  cout << "What is your name? ";
-
-  cin >> reply;
-
-  // Write into the file		      
-  file << "My name is " << reply << "\n";
-}
-
-void readFromFile(fstream& file)
-{
-  // Create necessary helper variables
-  char out[200];
-
-  // Set the marker at the beginning in order to read the file from the beginning.				     
-  file.seekg(ios::beg);
-				     
-  //extract first line into str
-  file >> out;
-  cout << out << endl;  
 }

@@ -1,20 +1,23 @@
-// Write a program that will write 3 sentences in the file fruits.txt that will then be read and printed line by line.
-
-// example: sentence#1: This is an example1, sentence #2: This is an example2 and sentence #3: This is an example3
-
 // Write a program where you ask the user to provide his/her name, then you write his/her name in the file.
+
 // Finally you read the file and print its content.
+
+// Libraries
 #include <iostream>
 #include <fstream> // to manage files in c++ environment.
 #include <cstring> // to concatenate the c-strings.
+#include <string>
 using namespace std;
+
+// Define global variable
+static char name[200];
 
 //////////////////////////
 // Functions Definition //
 //////////////////////////
 
 /* Remember to pass fstream by reference as it cannot be copied */
-void fileCreation (fstream&);
+void myFileCreation (fstream&);
 void writeToFile (fstream&);
 void readFromFile (fstream&);
 
@@ -31,20 +34,29 @@ int main() {
 
   try
   {
-      fileCreation(myfile);
+      myFileCreation(myfile);
+      cout << "File connection were successfully established.\n";
 
+      // Ask and write the name to myfile.
       writeToFile(myfile);
-
+      
+      // Read name from myfile.
       readFromFile(myfile);
 
-      // To free up resources and avoid memory leaks.
-      myfile.close();      
-  }
 
-  // And in case of error.
+      // To free up resources and avoid memory leaks.
+      myfile.close();
+      cout << "Your name was correctly written in the text file and the cinnection with the latter was closed to avoid memory leaks.\n";
+}
+
+  // And in case of error assure to free up resources.
   catch (...)//catch all exceptions
   {
-    myfile.close();
+    if(myfile.is_open())
+      {
+	myfile.close();
+	cout << "An error occured and the file connession was closed.\n";
+      }
   }
   
   return 0;
@@ -54,11 +66,10 @@ int main() {
 // Function Declaration //
 //////////////////////////
 
-void fileCreation(fstream& file)
+void myFileCreation(fstream& file)
 {
   //helper variable
   char file_format[] = ".txt";
-  char name[200];
 
   cout << "Enter the name of the txt to be create in the current working directory: ";
     
@@ -66,9 +77,8 @@ void fileCreation(fstream& file)
 
   strcat(name, file_format);
 
-  //Specify the file that will be used for writing.
-  // fstream::out to create the file in case it doesn't exist.
-  file.open(name, fstream::out);
+  //Specify the file that will be used for writing and reading.
+  file.open(name, ios::out);
   
 }
 
@@ -82,19 +92,23 @@ void writeToFile(fstream& file)
 
   cin >> reply;
 
-  file << "My name is " << reply << endl;
+  file << "My name is " << reply << "\n";
 
 }
 
 void readFromFile(fstream& file)
 {
+  // Open connection in read mode
+  file.close();
+  file.open(name, ios::in);
   // Create necessary helper variables
-  char input[200];
+  string input;
 
-  // Set the marker at the beginning in order to read the file from the beginning.				     
+  // Set the marker at the beginning in order to read the file from the beginning.
   file.seekg(ios::beg);
-				     
-  //extract first line into str
-  file >> input;
-  cout << input << endl;
+
+  while(getline(file, input))
+    {
+      cout << input << endl;
+    }
 }
