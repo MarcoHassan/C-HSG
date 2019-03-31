@@ -13,10 +13,14 @@ class Rectangle {
     int area ()
       {return (width * height);}
 // TODO add convert definition here
-   
+   int convert(Square a);
 };
 
-class Square {
+class Square
+{
+  // Declare friend class Rectangle allowing
+  // access priviledges to the Rectangle class
+  // member functions.
   friend class Rectangle;
   private:
     int side;
@@ -25,7 +29,11 @@ class Square {
 };
 
 // TODO add convert code here
-
+int Rectangle::convert(Square alef)
+{
+  cout << "The accessed side of the square is: "  << alef.side << endl;
+  return alef.side;
+}
   
 int main () {
   Rectangle rect;
@@ -34,3 +42,4 @@ int main () {
   cout << rect.area();
   return 0;
 }
+
