@@ -9,3 +9,5 @@ can connect to the server. On the other hand I developed on the freely available
 The code for the such connession is saved in the basics repository. To experiment the system you simply have to compile both the
 client.cpp and the server.cpp files.
 
+![](/home/mhassan/Scaricati/ezgif.com-optimize.gif)
+
