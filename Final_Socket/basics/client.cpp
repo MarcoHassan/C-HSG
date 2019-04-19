@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
     // Convert IPv4 and IPv6 addresses from text to binary form and save
     // the IP address of the server where we wish to connect.
     
-    if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0)  
+    if(inet_pton(AF_INET, argv[1], &serv_addr.sin_addr)<=0)  
     { 
         printf("\nInvalid address/ Address not supported \n"); 
         return -1; 
