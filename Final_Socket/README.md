@@ -24,7 +24,7 @@ Finally, to close the conversation and to free up the socket connession it is ju
 
 A simple demonstration of the execution of the above is demonstrated in the record below.
 
-![asciicast](https://asciinema.org/connect/f3537cea-6363-4c89-8c17-0e92b05d4091.png)[https://asciinema.org/connect/f3537cea-6363-4c89-8c17-0e92b05d4091]
+![asciicast](https://asciinema.org/a/a0CLSxQOYUT7oZpYrCqwcnFEg.png)[https://asciinema.org/a/a0CLSxQOYUT7oZpYrCqwcnFEg]
 
 
 
