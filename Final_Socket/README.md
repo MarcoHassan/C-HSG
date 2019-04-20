@@ -45,4 +45,67 @@ As a second step I attached a prespecified port to the opened socket in order fo
 
 The chosen port was 8080 as mentioned and it is important not to select a port already used by the computer for other internet communication. A list of avaialble ports is available at [IANA port numbers](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?).
 
+```
+if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, 
+&opt, sizeof(opt))) 
+{ 
+ perror("setsockopt"); 
+ exit(EXIT_FAILURE); 
+}
+```
+
+Moreover, it is important to notice again the control operations terminating the socket connession if a configuration error occurs.
+
+As a third step it is necessary to specify the type of connession, interface type and the port number in TCP/IP network byte order and to set the socket in connession mode with devices respecting the above conditions.
+
+This was done specifing the above parameters into an address struct and passing such parameters to the ```bind``` function of the ```sys/socket``` library.
+
+```
+    address.sin_family = AF_INET;                            
+    address.sin_addr.s_addr = INADDR_ANY;                    
+    address.sin_port = htons( PORT );                        
+       
+    if (bind(server_fd, (struct sockaddr *)&address,  
+                                 sizeof(address))<0) 
+    { 
+        perror("bind failed"); 
+        exit(EXIT_FAILURE); 
+    }
+```
+
+This means that once the port is specified in byte order, the address type is defined and the interface is defined any device trying to connect to the device over the specified port with the ```INADDR_ANY``` is going to be connected to the device.
+
+Once the conditions are successfully established it is finally necessary to set the socket in listen mode so that it will be possible for the server
+to process the connession request
+
+```
+    if (listen(server_fd, 3) < 0)  // notice the second argument represent the maximal number of connession allowed.
+    { 
+        perror("listen"); 
+        exit(EXIT_FAILURE); 
+    }
+```
+
+Once a client wish to connect it is then necessary to accept the connession and save the address of the entity trying to connect in order to interact with it in the chatbot execution and to finally close the connession releasing the resources.
+
+```
+    if ((new_socket = accept(server_fd, (struct sockaddr *)&address,  
+			     (socklen_t*)&addrlen))<0)  // save connession address of the enity trying to connect with the socket.
+    { 
+        perror("accept"); 
+        exit(EXIT_FAILURE); 
+    } 
+```
+
+Once the connession is fully established a loop sets the server side in reading mode receiving messages from the client until the ```send``` or ```bye``` messages arrives.
+
+Conditional on which of the two occurs two different scenarios occurs.
+If the client sends a ```bye``` message the server automatically replies with ```bye``` message and closes the socket connession.
+
+If a ```send``` message arrives, the latter will not be displayed and the
+server will turn to writing mode accepting messages until either a
+```send``` or ```bye``` message is written.
+
+**Client Side:**
+
 
