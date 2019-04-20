@@ -151,5 +151,19 @@ sent. At this stage depending on which terminating message is sent the
 client moves either in reading mode or close the socket connession in
 an analogous way the one described above.
 
+### 2. Multithreaded Chatbot
+
+The simple chatbot described above is expanded based on the multichat code
+published on Github on the following link:
+
+______________________
+
+[MultiChat Repo](https://github.com/rbaron/multichat).
+______________________
 
 
+The code in the repository is expanded by
+
+> * fixing a bug in the Client name declaration.
+
+> * introducing a new function sending messages to all open client sockets but the one sending the current message.
