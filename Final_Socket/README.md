@@ -164,6 +164,11 @@ ______________________
 
 The code in the repository is expanded by
 
-> * fixing a bug in the Client name declaration.
+ * fixing a bug in the Client name declaration.
 
-> * introducing a new function sending messages to all open client sockets but the one sending the current message.
+ * introducing a new function sending messages to all open client sockets but the one sending the current message.
+
+Video demonstation of the ameiliorated program.
+
+![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/42472072/56458426-b120e000-6386-11e9-9fac-4dfc47430f8a.gif)
+
