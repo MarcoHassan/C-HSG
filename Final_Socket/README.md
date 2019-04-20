@@ -108,4 +108,48 @@ server will turn to writing mode accepting messages until either a
 
 **Client Side:**
 
+The client side program is the mirror to the server side program and differs slightly from it.
+
+As in the server case it is necessary to open up a socket at first
+
+```
+    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)   
+    { 
+        printf("\n Socket creation error \n"); 
+        return -1; 
+    }
+```
+
+Then as in the server case it is necessary to specify the connession parameters
+
+```
+/* Specify Socket Type and Port */
+serv_addr.sin_family = AF_INET;                     
+serv_addr.sin_port = htons(PORT);
+
+/* Specify server IP address and convert it to binary form */
+if(inet_pton(AF_INET, argv[1], &serv_addr.sin_addr)<=0)  
+{ 
+ printf("\nInvalid address/ Address not supported \n"); 
+ return -1; 
+} 
+```
+
+The difference is now that the crated socket is not set into listen mode
+but rather connected to the the server specified port.
+
+```
+if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) 
+    { 
+        printf("\nConnection Failed \n"); 
+        return -1; 
+    }
+```
+
+Once the connection is established the code is analoguous to the one of the server side and two loops specifies the chatbot conditions. The client is first set into write mode until the message ```send``` or ```bye``` is
+sent. At this stage depending on which terminating message is sent the
+client moves either in reading mode or close the socket connession in
+an analogous way the one described above.
+
+
 
