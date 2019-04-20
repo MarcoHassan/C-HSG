@@ -21,6 +21,28 @@ A simple demonstration of the execution of the above is demonstrated in the reco
 
 #### 1.1 Code Discussion
 
-** Server Side: **
+**Server Side:**
 
-Protto duro
+On the server side we firstly instantiate a socket defining the type of addresses and type of communication protocol.
+
+```
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)  // 0 means connession was successful
+    { 
+        perror("socket failed"); 
+        exit(EXIT_FAILURE);                                  // close socket in case of unsuccessful connession. 
+    } 
+```
+
+In this sense I decided to specify a socket of AF_INET address type. This specifies that the socket can
+communicate with addresses of Internet Protocol v4.
+
+Moreover, I decided to specify the connection oriented TCP protocol by specifying the SOCK_STREAM parameter. Finally,
+0 stands as the default protocol type for the previously specified arguments.
+
+The if condition guarantees moreover that if the connessions was unsuccessful the socket is closed and the resources are released.
+
+As a second step I attached a prespecified port to the opened socket in order for the machine to connect with another machine and communicate with it over the specified port.
+
+The chosen port was 8080 as mentioned and it is important not to select a port already used by the computer for other internet communication. A list of avaialble ports is available at [IANA port numbers](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?).
+
+
