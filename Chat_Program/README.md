@@ -1,32 +1,52 @@
 ## Client-Server Socket connession and Simple - imperfect - Chat
 
-This is the final project for the Programming with Advanced Languages
+This is the final project for the _Programming with Advanced Languages_
 contextual course of the University of St. Gallen. For the course I
-decided to implement a simple Client-Sever Socket connession and
+decided to implement a simple Client-Sever socket connession and
 develop on it a simple chat.
 
-Based on it two versions were developed. On the one hand I implemented
-a simple one threaded Chat where one client at the time can connect to
-the server. On the other hand I developed on the freely available
-multithreaded code available at [MultiClient
+Two versions were developed. On the one hand I implemented a simple
+chat where one client can connect and chat with the server.  On the
+other hand I developed a multiclient chat based on the freely
+available multithreaded code available at [MultiClient
 Chat](https://github.com/rbaron/multichat).
 
 ### 1. Simple Client - Server Chat
 
 The code for the simple Client-Server chat is available under the basics repository.
 
-Before going into the code description it is possible to execute the
-code by compiling and running the compiled bytecode on a local
-computer or over a server. This will instruct the machine to open a
-socket on a specified port and set it in listening mode waiting for a
-Client to connect.
+Before going into the code description the compiling mehtod for the
+source code and the execution command is discussed.
+
+The simple Client-Server chat requires the execution of two source
+files in order to smoothly run: the ```server.cpp``` and
+```client.cpp``` files. In order to compile these it is suffcient to
+run the make command in the ```basics/client``` and
+```basics/server``` repositories. This will compile the source files with the parameters specified in the ```Makefile``` written in the two directories.
+
+Once the make command is executed in the two repositories the executable files can be found in the bin directories.
+
+It is then possible to run the executable server program by running the
+
+```
+basics/server/bin/server
+```
+
+file on a local computer or over a server. This will instruct the
+machine to open a socket on a specified port and set it in listening
+mode waiting for a Client to connect.
 
 Once the server program is running on a machine it is possible to
-connect to the former by running the compiled client code together
-with the ```IP address``` of the machine where the server program is
+connect to the former by running the compiled client code specifying
+the ```IP address``` of the machine where the server program is
 running. This will connect the machine running the client program
 through the TCP protocol to the other machine on ```port 8080```, the
 port chosen for the communication.
+
+Example:
+```
+basics/client/bin/client
+```
 
 Once the two machines are connected it is possible to follow the
 instructions appearing on monitor and enter messages followed by the
