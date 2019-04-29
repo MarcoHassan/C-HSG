@@ -1,4 +1,4 @@
-## Client-Server Socket connession and Simple - imperfect - Chat
+## Client-Server Socket connession and Simple Chat
 
 This is the final project for the _Programming with Advanced Languages_
 contextual course of the University of St. Gallen. For the course I
